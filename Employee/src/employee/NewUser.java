@@ -207,31 +207,37 @@ public class NewUser extends javax.swing.JFrame {
         // Create an instance of the entity class
         EmployeeDetails ed = new EmployeeDetails();
         
-        ed.setRegID(0);  // Default id value
-        ed.setFirstName(txt_FirstName.getText());
-        ed.setLastName(txt_LastName.getText());
-        ed.setAge(Integer.parseInt(txt_Age.getText()));
-        ed.setCountry(dropd_Country.getSelectedItem().toString());
-        ed.setEmail(txt_Email.getText());
-        ed.setUserName(txt_UserName.getText());
-        ed.setPassword(txt_Password.getText());
-        
-        
-        try {
-            
-            boolean result = dbop.addEmployee(ed);
-            
-            if (result) {
-                // insert successful
-                JOptionPane.showMessageDialog(this, "Successfuly Inserted.....!");
-                clearFiled();
-            } else {
-                // insert is not successful
-                JOptionPane.showMessageDialog(this, "Oops Error Occured While Inserting.....!");
-                clearFiled();
+        if(txt_Password.getText().equals(txt_ConfirmPassword.getText())) {
+            ed.setRegID(0);  // Default id value
+            ed.setFirstName(txt_FirstName.getText());
+            ed.setLastName(txt_LastName.getText());
+            ed.setAge(Integer.parseInt(txt_Age.getText()));
+            ed.setCountry(dropd_Country.getSelectedItem().toString());
+            ed.setEmail(txt_Email.getText());
+            ed.setUserName(txt_UserName.getText());
+            ed.setPassword(txt_Password.getText());
+
+            try {
+
+                boolean result = dbop.addEmployee(ed);
+
+                if (result) {
+                    // insert successful
+                    JOptionPane.showMessageDialog(this, "Successfuly Inserted.....!");
+                    clearFiled();
+                    this.dispose();
+                } else {
+                    // insert is not successful
+                    JOptionPane.showMessageDialog(this, "Oops Error Occured While Inserting.....!");
+                    clearFiled();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(this, "Password Mismatch...........!");
+            txt_Password.setText("");
+            txt_ConfirmPassword.setText("");
         }
         
     }//GEN-LAST:event_btn_submitActionPerformed
