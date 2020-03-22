@@ -190,7 +190,19 @@ public class NewUser extends javax.swing.JFrame {
     private void dropd_CountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropd_CountryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dropd_CountryActionPerformed
-
+    
+    void clearFiled() {
+        // cleare the text fileds
+        
+        txt_FirstName.setText("");
+        txt_LastName.setText("");
+        txt_Age.setText("");
+        txt_Email.setText("");
+        txt_UserName.setText("");
+        txt_Password.setText("");
+        txt_ConfirmPassword.setText("");
+    }
+    
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
         // Create an instance of the entity class
         EmployeeDetails ed = new EmployeeDetails();
@@ -212,9 +224,11 @@ public class NewUser extends javax.swing.JFrame {
             if (result) {
                 // insert successful
                 JOptionPane.showMessageDialog(this, "Successfuly Inserted.....!");
+                clearFiled();
             } else {
                 // insert is not successful
                 JOptionPane.showMessageDialog(this, "Oops Error Occured While Inserting.....!");
+                clearFiled();
             }
         } catch (SQLException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
