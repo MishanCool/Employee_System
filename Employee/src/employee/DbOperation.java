@@ -20,15 +20,10 @@ public class DbOperation {
     
     
     
-    void addEmployee(EmployeeDetails ed) throws SQLException{
+    boolean addEmployee(EmployeeDetails ed) throws SQLException{
         
         try {
             con = (Connection)DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
-            System.out.print(e);
-        }
-        
-        try {
             String query = "INSERT INTO employeedetails VALUES(?,?,?,?,?,?,?,?)";
 
             pst = (PreparedStatement)con.prepareStatement(query);
@@ -43,9 +38,26 @@ public class DbOperation {
             pst.setString(8, ed.getPassword());
 
             pst.executeUpdate();
+            
+            return true;
         
         } catch (Exception e) {
             System.out.print(e);
+            return false;
+            
+        } finally {
+            
+            try {
+                if(pst != null){
+                pst.close();
+                }
+
+                if(con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+            }
+            
         }
         
     }

@@ -8,6 +8,7 @@ package employee;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -205,7 +206,16 @@ public class NewUser extends javax.swing.JFrame {
         
         
         try {
-            dbop.addEmployee(ed);
+            
+            boolean result = dbop.addEmployee(ed);
+            
+            if (result) {
+                // insert successful
+                JOptionPane.showMessageDialog(this, "Successfuly Inserted.....!");
+            } else {
+                // insert is not successful
+                JOptionPane.showMessageDialog(this, "Oops Error Occured While Inserting.....!");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
